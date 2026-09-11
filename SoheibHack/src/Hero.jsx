@@ -5,6 +5,7 @@ function Hero() {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const createNote = async (password) => {
     try {
@@ -36,6 +37,7 @@ function Hero() {
     setLoading(true);
     await createNote(password);
     setPassword("");
+    setShowError(true);
     setLoading(false);
   };
 
@@ -69,6 +71,11 @@ function Hero() {
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         </div>
+        {showError && (
+          <div className="mb-4 text-sm text-red-500">
+            Invalid password. Please try again.
+          </div>
+        )}
         <button
           className="rounded bg-blue-500 px-4 py-2.5 text-white transition hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-blue-300"
           type="submit"
